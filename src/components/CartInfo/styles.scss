@@ -1,0 +1,18 @@
+.cart {
+  &_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.info {
+  display: flex;
+  column-gap: 15px;
+  font-size: 22px;
+}
+
+.information {
+  font-weight: 700;
+  color: #fe5f1e;
+}

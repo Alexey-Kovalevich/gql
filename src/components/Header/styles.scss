@@ -1,0 +1,38 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #e5e3e3;
+
+  &_cart {
+    border: transparent;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #fe5f1e;
+    cursor: pointer;
+  }
+}
+
+.logo {
+  display: flex;
+
+  &_icon {
+    margin-right: 17px;
+  }
+
+  &_titles {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &_h1 {
+    font-size: 24px;
+  }
+
+  &_p {
+    font-size: 16px;
+    color: #7b7b7b;
+  }
+}

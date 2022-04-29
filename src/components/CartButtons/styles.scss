@@ -1,0 +1,26 @@
+.cart {
+  &_buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+
+  &_button1 {
+    padding: 15px;
+    border: 1px solid #d3d3d3;
+    border-radius: 30px;
+    background-color: transparent;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  &_button2 {
+    padding: 15px;
+    border: transparent;
+    border-radius: 30px;
+    background-color: #fe5f1e;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+  }
+}
