@@ -1,21 +1,45 @@
-import React from 'react';
-import pizza from '../../../assets/images/pizza.png';
+import React, { useState } from 'react';
+import pizzaImage from '../../../assets/images/pizza.png';
 import './styles.scss';
 
-const Card = () => {
+const Card = ({ pizza }) => {
+  const {
+    dough: initialDough,
+    price: initialPrice,
+    size: initialSize,
+  } = pizza.modifications[0];
+
+  const doughTypes = [
+    ...new Set(pizza.modifications.map(({ dough }) => dough)),
+  ];
+  const sizeTypes = [...new Set(pizza.modifications.map(({ size }) => size))];
+
+  const [dough, setDough] = useState(initialDough);
+  const [size, setSize] = useState(initialSize);
+  const [price, setPrice] = useState(initialPrice);
+
   return (
     <div className="card">
-      <img className="card_image" src={pizza} alt="pizza" />
-      <h3 className="card_title">Чизбургер-пицца</h3>
+      <img className="card_image" src={pizzaImage} alt="pizza" />
+      <h3 className="card_title">{pizza.name}</h3>
       <div className="card_filters">
         <div className="filters_size">
-          <button className="filters_button">Тонкое</button>
-          <button className="filters_button">Традиционное</button>
+          {doughTypes.map((item, index) => {
+            return (
+              <button key={index} className="filters_button">
+                {item}
+              </button>
+            );
+          })}
         </div>
         <div className="filters_size">
-          <button className="filters_button">26см</button>
-          <button className="filters_button">30см</button>
-          <button className="filters_button">40см</button>
+          {sizeTypes.map((item, index) => {
+            return (
+              <button key={index} className="filters_button">
+                {item}см
+              </button>
+            );
+          })}
         </div>
       </div>
       <div className="card_footer">
