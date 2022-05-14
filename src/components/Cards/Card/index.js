@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import CardButton from './CardButton';
+import { addToCart } from '../../../helpers/cart';
 import pizzaImage from '../../../assets/images/pizza.png';
 import './styles.scss';
 
 const Card = ({ pizza }) => {
-  const { name, modifications } = pizza;
+  const { id, name, modifications } = pizza;
   const doughTypes = [...new Set(modifications.map(({ dough }) => dough))];
   const sizeTypes = [...new Set(modifications.map(({ size }) => size))];
   const {
@@ -35,6 +36,10 @@ const Card = ({ pizza }) => {
     if (modification) {
       setPrice(modification.price);
     }
+  };
+
+  const handleClick = () => {
+    addToCart({ id, name, dough, size, price });
   };
 
   return (
@@ -73,7 +78,7 @@ const Card = ({ pizza }) => {
       </div>
       <div className="card_footer">
         <p className="card_price">${price}</p>
-        <button className="card_add">
+        <button className="card_add" onClick={handleClick}>
           <p>+</p>
           <p>Добавить</p>
         </button>

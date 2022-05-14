@@ -5,7 +5,11 @@ import './styles.scss';
 import { GET_PIZZAS } from '../../gql/getPizzas';
 
 const Cards = () => {
-  const { error, loading, data } = useQuery(GET_PIZZAS);
+  const { error, loading, data } = useQuery(GET_PIZZAS, {
+    onError: (error) => {
+      console.log(error);
+    },
+  });
   const [pizzas, setPizzas] = useState([]);
 
   useEffect(() => {

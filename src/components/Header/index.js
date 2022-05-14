@@ -14,9 +14,9 @@ const Header = () => {
           <p className="logo_p">лучшая пицца во вселенной</p>
         </div>
       </Link>
-      <button className="header_cart">
+      <Link to="/cart" className="header_cart">
         <img src={cart} alt="cart" />
-      </button>
+      </Link>
     </header>
   );
 };

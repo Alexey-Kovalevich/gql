@@ -1,11 +1,34 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles.scss';
 
-const CartButtons = () => {
+const CartButtons = ({ storage, totalPrice, totalAmount, createOrder }) => {
+  const navigate = useNavigate();
+  const goBack = () => navigate('/');
+  const makeOrder = () => {
+    const orderedPizzas = storage.map(
+      ({ dough, size, price, quantity, name }) => {
+        quantity = 1;
+        return { dough, size, price, amount: quantity, pizzaName: name };
+      }
+    );
+    console.log(orderedPizzas);
+    const finalOrder = { totalPrice, totalAmount, orderedPizzas };
+    createOrder({
+      variables: {
+        input: finalOrder,
+      },
+    });
+  };
+
   return (
     <div className="cart_buttons">
-      <button className="cart_button1">Вернуться назад</button>
-      <button className="cart_button2">Оплатить сейчас</button>
+      <button className="cart_button1" onClick={goBack}>
+        Вернуться назад
+      </button>
+      <button className="cart_button2" onClick={makeOrder}>
+        Оплатить сейчас
+      </button>
     </div>
   );
 };

@@ -2,10 +2,12 @@ import React from 'react';
 import CartItem from '../CartItem';
 import './styles.scss';
 
-const CartItems = () => {
+const CartItems = ({ storage }) => {
   return (
     <div className="cart_orders">
-      <CartItem />
+      {storage.map((item) => {
+        return <CartItem key={item.id} item={item} />;
+      })}
     </div>
   );
 };
