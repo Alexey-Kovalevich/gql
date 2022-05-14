@@ -62,19 +62,4 @@
   &_size {
     display: flex;
   }
-
-  &_button {
-    width: 100%;
-    margin: 3px;
-    padding: 3px;
-    background-color: transparent;
-    border: transparent;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #fff;
-    }
-  }
 }
