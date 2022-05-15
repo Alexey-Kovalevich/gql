@@ -21,3 +21,7 @@ export const getStorage = (key) => {
   }
   return null;
 };
+
+export const getStore = (storage) => {
+  return storage ? storage : [];
+};

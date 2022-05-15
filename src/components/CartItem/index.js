@@ -2,11 +2,10 @@ import React from 'react';
 import pizza from '../../assets/images/pizza.png';
 import './styles.scss';
 
-const CartItem = ({ item }) => {
-  const { id, name, dough, size, price } = item;
-  const removePizza = () => {
-    console.log('remove');
-    // removeFromCart(id);
+const CartItem = ({ item, removePizza }) => {
+  const { id, name, dough, size, price, quantity } = item;
+  const handleRemove = () => {
+    removePizza(id, dough, size);
   };
   return (
     <div className="order">
@@ -21,11 +20,11 @@ const CartItem = ({ item }) => {
       </div>
       <div className="order_count">
         <button className="count_button">-</button>
-        <p className="count_value">1</p>
+        <p className="count_value">{quantity}</p>
         <button className="count_button">+</button>
       </div>
       <h4 className="order_price">${price}</h4>
-      <button className="order_remove" onClick={removePizza}>
+      <button className="order_remove" onClick={handleRemove}>
         X
       </button>
     </div>

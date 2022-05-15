@@ -1,7 +1,9 @@
-import React from 'react';
+/* eslint-disable no-undef */
+import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_ORDER } from '../../gql/createOrder';
-import { storage } from '../../helpers/cart';
+import { getStorage, getStore } from '../../helpers/storage';
+import { storageKey, clearCart, removeFromCart } from '../../helpers/cart';
 import EmptyCart from '../EmptyCart';
 import CartItems from '../../components/CartItems';
 import CartInfo from '../../components/CartInfo';
@@ -9,10 +11,15 @@ import CartButtons from '../../components/CartButtons';
 import './styles.scss';
 
 const Cart = () => {
-  const totalPrice = storage.reduce((acc, item) => acc + item.price, 0);
-  const totalAmount = storage.length;
+  const storage = getStore(getStorage(storageKey));
+  const [choosenPizzas, setChoosenPizzas] = useState(storage || []);
+  console.log(choosenPizzas);
 
-  const [createOrder, { error, loading, data }] = useMutation(CREATE_ORDER, {
+  const totalPrice =
+    Math.round(storage.reduce((acc, item) => acc + item.price, 0) * 100) / 100;
+  const totalAmount = storage.reduce((acc, item) => acc + item.quantity, 0);
+
+  const [createOrder, { error, loading }] = useMutation(CREATE_ORDER, {
     onCompleted: () => {
       window.location = '/';
     },
@@ -26,20 +33,35 @@ const Cart = () => {
     return 'Error!';
   }
 
-  console.log(data);
+  const removePizza = (id, dough, size) => {
+    removeFromCart(id, dough, size);
+    const arr = [...choosenPizzas];
+    setChoosenPizzas(
+      arr.filter(
+        (item) => item.id !== id || item.dough !== dough || item.size !== size
+      )
+    );
+  };
+
+  const handleClearCart = () => {
+    setChoosenPizzas([]);
+    clearCart();
+  };
 
   return (
     <>
-      {storage ? (
+      {choosenPizzas ? (
         <div className="cart">
           <div className="cart_top">
             <h1 className="top-title">Корзина</h1>
-            <button className="top-button">Очистить корзину</button>
+            <button className="top-button" onClick={handleClearCart}>
+              Очистить корзину
+            </button>
           </div>
-          <CartItems storage={storage} />
+          <CartItems storage={choosenPizzas} removePizza={removePizza} />
           <CartInfo totalPrice={totalPrice} totalAmount={totalAmount} />
           <CartButtons
-            storage={storage}
+            storage={choosenPizzas}
             totalPrice={totalPrice}
             totalAmount={totalAmount}
             createOrder={createOrder}
