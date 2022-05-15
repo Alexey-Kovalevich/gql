@@ -13,7 +13,6 @@ import './styles.scss';
 const Cart = () => {
   const storage = getStore(getStorage(storageKey));
   const [choosenPizzas, setChoosenPizzas] = useState(storage || []);
-  console.log(choosenPizzas);
 
   const totalPrice =
     Math.round(storage.reduce((acc, item) => acc + item.price, 0) * 100) / 100;
