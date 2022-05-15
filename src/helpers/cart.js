@@ -32,9 +32,7 @@ export const addToCart = (cart) => {
   const stored = getStore(getStorage(storageKey));
   const prevCartState = [...stored];
   const inStorage = prevCartState.find(
-    (item) =>
-      // item.id === cart.id &&
-      item.dough === cart.dough && item.size === cart.size
+    (item) => item.dough === cart.dough && item.size === cart.size
   );
 
   if (inStorage) {
@@ -43,9 +41,4 @@ export const addToCart = (cart) => {
     const nextCartState = [...prevCartState, { ...cart, quantity: 1 }];
     updateCart(nextCartState);
   }
-  // dough: 'тонкое';
-  // id: 'b89387ce-efba-4a06-b716-40bb0057e15b';
-  // name: 'Карбонара';
-  // price: 14.99;
-  // size: 26;
 };

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_ORDER } from '../../gql/createOrder';
