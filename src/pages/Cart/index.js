@@ -18,18 +18,18 @@ const Cart = () => {
     Math.round(storage.reduce((acc, item) => acc + item.price, 0) * 100) / 100;
   const totalAmount = storage.reduce((acc, item) => acc + item.quantity, 0);
 
-  const [createOrder, { error, loading }] = useMutation(CREATE_ORDER, {
+  const [createOrder, { loading }] = useMutation(CREATE_ORDER, {
     onCompleted: () => {
       window.location = '/';
+      handleClearCart();
+    },
+    onError: () => {
+      console.log('error');
     },
   });
 
   if (loading) {
     return 'Loading...';
-  }
-
-  if (error) {
-    return 'Error!';
   }
 
   const removePizza = (id, dough, size) => {

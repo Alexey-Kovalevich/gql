@@ -8,11 +8,9 @@ const CartButtons = ({ storage, totalPrice, totalAmount, createOrder }) => {
   const makeOrder = () => {
     const orderedPizzas = storage.map(
       ({ dough, size, price, quantity, name }) => {
-        quantity = 1;
         return { dough, size, price, amount: quantity, pizzaName: name };
       }
     );
-    console.log(orderedPizzas);
     const finalOrder = { totalPrice, totalAmount, orderedPizzas };
     createOrder({
       variables: {

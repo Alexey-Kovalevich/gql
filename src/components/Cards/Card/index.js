@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import CardButton from './CardButton';
 import { addToCart } from '../../../helpers/cart';
