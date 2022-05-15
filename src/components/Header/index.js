@@ -14,6 +14,7 @@ const Header = () => {
           <p className="logo_p">лучшая пицца во вселенной</p>
         </div>
       </Link>
+      <Link to="/orders">Заказы</Link>
       <Link to="/cart" className="header_cart">
         <img src={cart} alt="cart" />
       </Link>

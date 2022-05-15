@@ -15,7 +15,9 @@ const Cart = () => {
   const [choosenPizzas, setChoosenPizzas] = useState(storage || []);
 
   const totalPrice =
-    Math.round(storage.reduce((acc, item) => acc + item.price, 0) * 100) / 100;
+    Math.round(
+      storage.reduce((acc, item) => acc + item.price * item.quantity, 0) * 100
+    ) / 100;
   const totalAmount = storage.reduce((acc, item) => acc + item.quantity, 0);
 
   const [createOrder, { loading }] = useMutation(CREATE_ORDER, {

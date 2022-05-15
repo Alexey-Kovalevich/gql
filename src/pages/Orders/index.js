@@ -1,7 +1,9 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_ORDERS } from '../../gql/getOrders';
+import Order from '../../components/Order';
 import EmptyOrders from './EmptyOrders';
+import './styles.scss';
 
 const Orders = () => {
   const { error, loading, data } = useQuery(GET_ORDERS, {
@@ -17,27 +19,51 @@ const Orders = () => {
     return 'Loading...';
   }
 
-  console.log(data);
+  const { orders } = data || [];
+
+  const amount = orders.length;
+  const price =
+    Math.round(orders?.reduce((acc, item) => acc + item.totalPrice, 0) * 100) /
+    100;
+
   return (
-    <div className="cart">
-      <div className="cart_top">
-        <h1 className="top-title">Заказы</h1>
-      </div>
-      <div className="cart_orders">
-        <div className="order">
-          <div className="order_desc">
-            <div className="desc_general">
-              <h4 className="desc_title">lala</h4>
-              <p className="desc_p">lala см</p>
+    <>
+      {orders.length > 0 ? (
+        <div className="orders">
+          <div className="orders-top">
+            <h1 className="orders-top_title">Заказы</h1>
+            <div className="orders-top_info">
+              <p className="orders-top_text">Всего: {amount}шт</p>
+              <p className="orders-top_text">Цена: ${price}</p>
             </div>
           </div>
-          <div className="order_count">
-            <p className="count_value">2</p>
+          <div className="orders_items">
+            {orders.map(({ id, orderedPizzas }) => {
+              return (
+                <div key={id} className="border">
+                  {orderedPizzas.map(
+                    ({ amount, dough, pizzaName, price, size }, index) => {
+                      return (
+                        <Order
+                          key={index}
+                          name={pizzaName}
+                          dough={dough}
+                          size={size}
+                          amount={amount}
+                          price={price}
+                        />
+                      );
+                    }
+                  )}
+                </div>
+              );
+            })}
           </div>
-          <h4 className="order_price">$2</h4>
         </div>
-      </div>
-    </div>
+      ) : (
+        <EmptyOrders />
+      )}
+    </>
   );
 };
 

@@ -33,9 +33,8 @@ export const addToCart = (cart) => {
   const prevCartState = [...stored];
   const inStorage = prevCartState.find(
     (item) =>
-      item.id === cart.id &&
-      item.dough === cart.dough &&
-      item.size === cart.size
+      // item.id === cart.id &&
+      item.dough === cart.dough && item.size === cart.size
   );
 
   if (inStorage) {
