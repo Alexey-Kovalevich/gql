@@ -49,7 +49,7 @@ const Cart = () => {
 
   return (
     <>
-      {choosenPizzas ? (
+      {choosenPizzas.length > 0 ? (
         <div className="cart">
           <div className="cart_top">
             <h1 className="top-title">Корзина</h1>

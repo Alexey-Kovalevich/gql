@@ -19,9 +19,7 @@ const CartItem = ({ item, removePizza }) => {
         </div>
       </div>
       <div className="order_count">
-        <button className="count_button">-</button>
         <p className="count_value">{quantity}</p>
-        <button className="count_button">+</button>
       </div>
       <h4 className="order_price">${price}</h4>
       <button className="order_remove" onClick={handleRemove}>
