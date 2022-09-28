@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import CardButton from './CardButton';
 import { addToCart } from '../../../helpers/cart';
-import pizzaImage from '../../../assets/images/pizza.png';
+import { SERVER_URL } from '../../../helpers/consts';
 import './styles.scss';
 
 const Card = ({ pizza }) => {
-  const { id, name, modifications } = pizza;
+  const { id, name, modifications, image } = pizza;
   const doughTypes = [...new Set(modifications.map(({ dough }) => dough))];
   const sizeTypes = [...new Set(modifications.map(({ size }) => size))];
   const {
@@ -38,12 +38,12 @@ const Card = ({ pizza }) => {
   };
 
   const handleClick = () => {
-    addToCart({ id, name, dough, size, price });
+    addToCart({ id, name, dough, size, price, image });
   };
 
   return (
     <div className="card">
-      <img className="card_image" src={pizzaImage} alt="pizza" />
+      <img className="card_image" src={`${SERVER_URL}${image}`} alt="pizza" />
       <h3 className="card_title">{name}</h3>
       <div className="card_filters">
         <div className="filters_size">

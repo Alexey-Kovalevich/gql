@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
+import { filterPizzasByCategory } from '../../helpers/filterPizzasByCategory';
 import Card from './Card';
 import './styles.scss';
 import { GET_PIZZAS } from '../../gql/getPizzas';
 
-const Cards = () => {
+const Cards = ({ filteredCategory }) => {
   const { error, loading, data } = useQuery(GET_PIZZAS, {
     onError: (error) => {
       console.log(error);
@@ -12,12 +13,18 @@ const Cards = () => {
   });
   const [pizzas, setPizzas] = useState([]);
 
+  console.log('first data: ', data);
+
   useEffect(() => {
     if (data) {
       const allPizzas = data.pizzas;
-      setPizzas(allPizzas);
+      const filteredPizzas = filterPizzasByCategory(
+        allPizzas,
+        filteredCategory
+      );
+      setPizzas(filteredPizzas);
     }
-  }, [data]);
+  }, [data, filteredCategory]);
 
   if (error) {
     return 'Error!';

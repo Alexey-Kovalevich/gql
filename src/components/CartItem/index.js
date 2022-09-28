@@ -1,16 +1,21 @@
 import React from 'react';
-import pizza from '../../assets/images/pizza.png';
+import { SERVER_URL } from '../../helpers/consts';
 import './styles.scss';
 
 const CartItem = ({ item, removePizza }) => {
-  const { id, name, dough, size, price, quantity } = item;
+  console.log(item);
+  const { id, name, dough, size, price, quantity, image } = item;
   const handleRemove = () => {
     removePizza(id, dough, size);
   };
   return (
     <div className="order">
       <div className="order_desc">
-        <img src={pizza} alt="pizza-img" className="desc_img" />
+        <img
+          src={`${SERVER_URL}${image}`}
+          alt="pizza-img"
+          className="desc_img"
+        />
         <div className="desc_general">
           <h4 className="desc_title">{name}</h4>
           <p className="desc_p">
