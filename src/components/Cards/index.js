@@ -13,8 +13,6 @@ const Cards = ({ filteredCategory }) => {
   });
   const [pizzas, setPizzas] = useState([]);
 
-  console.log('first data: ', data);
-
   useEffect(() => {
     if (data) {
       const allPizzas = data.pizzas;
