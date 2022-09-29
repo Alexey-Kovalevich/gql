@@ -3,7 +3,6 @@ import { SERVER_URL } from '../../helpers/consts';
 import './styles.scss';
 
 const CartItem = ({ item, removePizza }) => {
-  console.log(item);
   const { id, name, dough, size, price, quantity, image } = item;
   const handleRemove = () => {
     removePizza(id, dough, size);
