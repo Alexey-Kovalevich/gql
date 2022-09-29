@@ -33,7 +33,7 @@ const Orders = () => {
           <div className="orders-top">
             <h1 className="orders-top_title">Заказы</h1>
             <div className="orders-top_info">
-              <p className="orders-top_text">Всего: {amount}шт</p>
+              <p className="orders-top_text">Всего заказов: {amount}</p>
               <p className="orders-top_text">Цена: ${price}</p>
             </div>
           </div>

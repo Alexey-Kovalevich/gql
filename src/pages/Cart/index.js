@@ -21,7 +21,6 @@ const Cart = () => {
 
   const [createOrder, { loading }] = useMutation(CREATE_ORDER, {
     onCompleted: () => {
-      window.location = '/';
       handleClearCart();
     },
     onError: () => {
