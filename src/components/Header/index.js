@@ -1,10 +1,28 @@
+import { useQuery, useSubscription } from '@apollo/client';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { GET_AMOUNT } from '../../gql/getAmount';
+import { SUBSCRIPTION_AMOUNT } from '../../gql/subscriptionAmount';
 import logo from '../../assets/images/logo.svg';
 import cart from '../../assets/images/shop.svg';
 import './styles.scss';
 
 const Header = () => {
+  const { data, loading } = useSubscription(SUBSCRIPTION_AMOUNT);
+  const { data: amountData, loading: amountLoading } = useQuery(GET_AMOUNT);
+
+  let amount = 500;
+
+  if (loading) {
+    if (!amountLoading) {
+      amount = amountData.amount;
+    }
+  } else {
+    amount = data.amountUpdated;
+  }
+
+  console.log(amount);
+
   return (
     <header className="header">
       <Link to="/" className="logo">
