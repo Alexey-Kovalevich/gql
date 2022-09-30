@@ -4,7 +4,7 @@ const { PubSub } = require('graphql-subscriptions');
 const pizzas = require('../data/pizzas.json');
 const orders = require('../data/orders.json');
 const modifications = require('../data/modifications.json');
-const amount = require('../data/amount.json');
+let { amount } = require('../data/amount.json');
 
 const pubsub = new PubSub();
 
@@ -56,7 +56,12 @@ const resolvers = {
         if (err) {
           console.log(err);
         } else {
-          fs.writeFile('data/amount.json', json, 'utf8', () => amount);
+          fs.writeFile(
+            'data/amount.json',
+            JSON.stringify({ amount }),
+            'utf8',
+            () => amount
+          );
         }
       });
       return amount;
