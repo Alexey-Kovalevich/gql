@@ -7,18 +7,14 @@ import {
   ApolloProvider,
   HttpLink,
   split,
-  makeVar,
 } from '@apollo/client';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 import App from './App';
 import { SERVER_URL, URL_WS } from './helpers/consts';
-import './index.css';
 import { getMainDefinition } from '@apollo/client/utilities';
-
-const cartVar = makeVar({
-  items: [],
-});
+import { cartVar } from './helpers/cart';
+import './index.css';
 
 const cache = new InMemoryCache({
   typePolicies: {

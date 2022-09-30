@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_ORDER } from '../../gql/createOrder';
-import { getStorage, getStore } from '../../helpers/storage';
-import { storageKey, clearCart, removeFromCart } from '../../helpers/cart';
+import { clearCart, removeFromCart } from '../../helpers/cart';
+import { useReactiveVar } from '@apollo/client';
+import { cartVar } from '../../helpers/cart';
 import EmptyCart from '../EmptyCart';
 import CartItems from '../../components/CartItems';
 import CartInfo from '../../components/CartInfo';
@@ -10,14 +11,14 @@ import CartButtons from '../../components/CartButtons';
 import './styles.scss';
 
 const Cart = () => {
-  const storage = getStore(getStorage(storageKey));
-  const [choosenPizzas, setChoosenPizzas] = useState(storage || []);
+  const cart = useReactiveVar(cartVar);
+  const [choosenPizzas, setChoosenPizzas] = useState(cart || []);
 
   const totalPrice =
     Math.round(
-      storage.reduce((acc, item) => acc + item.price * item.quantity, 0) * 100
+      cart.reduce((acc, item) => acc + item.price * item.quantity, 0) * 100
     ) / 100;
-  const totalAmount = storage.reduce((acc, item) => acc + item.quantity, 0);
+  const totalAmount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   const [createOrder, { loading }] = useMutation(CREATE_ORDER, {
     onCompleted: () => {
