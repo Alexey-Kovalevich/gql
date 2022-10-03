@@ -15,6 +15,15 @@ const CartButtons = ({ storage, totalPrice, totalAmount, createOrder }) => {
     createOrder({
       variables: {
         input: finalOrder,
+        optimisticResponse: {
+          createOrder: {
+            id: '111',
+            __typename: 'Order',
+            totalPrice,
+            totalAmount,
+            orderedPizzas: [],
+          },
+        },
       },
     });
   };
