@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { CREATE_ORDER } from '../../gql/createOrder';
 import { clearCart, removeFromCart } from '../../helpers/cart';
 import { useReactiveVar } from '@apollo/client';
@@ -26,6 +26,24 @@ const Cart = () => {
     },
     onError: () => {
       console.log('error');
+    },
+    update(cache, { data: { createOrder } }) {
+      cache.modify({
+        fields: {
+          orders(prevOrders = []) {
+            const newOrder = cache.writeFragment({
+              data: createOrder,
+              fragment: gql`
+                fragment NewOrder on Order {
+                  id
+                  type
+                }
+              `,
+            });
+            return [...prevOrders, newOrder];
+          },
+        },
+      });
     },
   });
 
