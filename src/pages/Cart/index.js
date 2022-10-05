@@ -31,16 +31,15 @@ const Cart = () => {
       cache.modify({
         fields: {
           orders(prevOrders = []) {
-            const newOrder = cache.writeFragment({
+            const updatedOrder = cache.writeFragment({
               data: createOrder,
               fragment: gql`
-                fragment NewOrder on Order {
+                fragment updatedOrder on Order {
                   id
-                  type
                 }
               `,
             });
-            return [...prevOrders, newOrder];
+            return [...prevOrders, updatedOrder];
           },
         },
       });
